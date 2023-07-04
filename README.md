@@ -1,6 +1,6 @@
 # ExoPlanet-Finder
 
-Run this in Jupyter Notebook!
+Run this in Jupyter Notebook or Google Collab!
 
 In this repo, we can find our own exoplants with python and the lightkurve library. Go through the basic steps of analyzing stellar timeseries data from TESS (Transiting Exoplanet Survey Satellite) to find perodic changes in brightness which may incdicate the presence of a planet in orbit of a star. There are around 9.5 million stars to look at in the dataset so you can find a planet that's never been discovered before!
 
