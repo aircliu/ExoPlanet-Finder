@@ -1,24 +1,27 @@
-tpf = TessTargetPixelFile(" #insert link here ")
-# Show a single snapshot 
-tpf.plot(frame=42)
+# Make sure to replace "#insert link here" with the actual link
+tpf = TessTargetPixelFile("#insert link here")
 
-# Plot the lightcurve
-lc = tpf.to_lightcurve(aperture_mask=tpf.pipeline_mask)
-lc.plot()
+# Display a single snapshot of the target pixel file
+tpf.plot(frame_number=42)
 
-# Flatten it 
-flat_lc = lc.flatten()
-flat_lc.plot()
+# Convert the target pixel file to a light curve
+light_curve = tpf.to_lightcurve(aperture_mask=tpf.pipeline_mask)
+light_curve.plot()
 
-# Try and find the period of the most prominent orbiting object
-period = np.linspace(1, 5, 10000)
-bls = lc.to_periodogram(method='bls', period=period, frequency_factor=500)
-bls.plot()
+# Flatten the light curve to remove trends
+flattened_lc = light_curve.flatten()
+flattened_lc.plot()
 
-planet_x_period = bls.period_at_max_power
-planet_x_t0 = bls.transit_time_at_max_power
-planet_x_dur = bls.duration_at_max_power
+# Calculate the periodogram to find the dominant orbital period
+periods = np.linspace(1, 5, 10000)
+periodogram = light_curve.to_periodogram(method='bls', period=periods, frequency_factor=500)
+periodogram.plot()
 
-# Phase-fold the ligthcurve based on the discovered period at max power
-ax = lc.fold(period=planet_x_period, epoch_time=planet_x_t0).scatter()
-ax.set_xlim(-3,3)
+# Extract key parameters from the periodogram
+orbital_period = periodogram.period_at_max_power
+transit_midpoint = periodogram.transit_time_at_max_power
+transit_duration = periodogram.duration_at_max_power
+
+# Phase-fold the light curve using the discovered orbital period
+folded_lc_ax = light_curve.fold(period=orbital_period, epoch_time=transit_midpoint).scatter()
+folded_lc_ax.set_xlim(-3, 3)
