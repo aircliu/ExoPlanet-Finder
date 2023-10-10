@@ -1,4 +1,4 @@
-# Make sure to replace "#insert link here" with the actual link
+# Make sure to replace "#insert link here" with the actual link (Use download helper)
 tpf = TessTargetPixelFile("#insert link here")
 
 # Display a single snapshot of the target pixel file
